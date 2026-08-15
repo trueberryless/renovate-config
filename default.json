@@ -1,0 +1,58 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":configMigration",
+    ":disableDependencyDashboard",
+    ":widenPeerDependencies",
+    "docker:pinDigests",
+    "group:allNonMajor",
+    "group:linters",
+    "group:test",
+    "group:vite",
+    "helpers:pinGitHubActionDigestsToSemver",
+    "mergeConfidence:all-badges",
+    "schedule:automergeEarlyMondays",
+    "workarounds:all"
+  ],
+  "rangeStrategy": "bump",
+  "ignorePaths": ["**/node_modules/**"],
+  "minimumReleaseAge": "7 days",
+  "commitMessageSuffix": "[skip netlify]",
+  "postUpdateOptions": ["pnpmDedupe"],
+  "packageRules": [
+    {
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"]
+    },
+    {
+      "groupName": "npm-packages",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "separateMajorMinor": true
+    },
+    {
+      "description": "Disable package manager version updates (Nix managed pnpm installation is some versions behind)",
+      "matchPackageNames": ["pnpm"],
+      "matchDepTypes": ["packageManager"],
+      "enabled": false
+    },
+    {
+      "description": "Disable Node.js engines field updates (needed because of the use of rangeStrategy: 'bump' above)",
+      "matchPackageNames": ["node"],
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["engines"],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "minimumReleaseAge": "21 days"
+    },
+    {
+      "matchPackageNames": ["@astrojs/starlight"],
+      "matchUpdateTypes": ["minor", "major"],
+      "automerge": false
+    }
+  ]
+}
