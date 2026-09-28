@@ -12,7 +12,6 @@
     "group:vite",
     "helpers:pinGitHubActionDigestsToSemver",
     "mergeConfidence:all-badges",
-    "schedule:automergeEarlyMondays",
     "workarounds:all"
   ],
   "rangeStrategy": "bump",
@@ -46,21 +45,14 @@
     },
     {
       "matchUpdateTypes": ["patch", "minor"],
-      "automerge": true,
       "minimumReleaseAge": "21 days"
     },
     {
-      "description": "Treat minor updates of 0.x packages (e.g. Starlight) as breaking: keep them out of the automerged group and never automerge them",
+      "description": "Treat minor updates of 0.x packages (e.g. Starlight) as breaking: keep them out of the non-major group",
       "matchManagers": ["npm"],
       "matchCurrentVersion": "<1.0.0",
       "matchUpdateTypes": ["minor"],
-      "groupName": "npm-packages (breaking 0.x)",
-      "automerge": false
-    },
-    {
-      "matchPackageNames": ["@astrojs/starlight"],
-      "matchUpdateTypes": ["minor", "major"],
-      "automerge": false
+      "groupName": "npm-packages (breaking 0.x)"
     }
   ]
 }
