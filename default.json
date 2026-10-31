@@ -17,7 +17,6 @@
   "rangeStrategy": "bump",
   "ignorePaths": ["**/node_modules/**"],
   "minimumReleaseAge": "7 days",
-  "commitMessageSuffix": "[skip netlify]",
   "postUpdateOptions": ["pnpmDedupe"],
   "packageRules": [
     {
